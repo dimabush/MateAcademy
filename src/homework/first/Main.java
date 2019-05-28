@@ -1,6 +1,6 @@
 package homework.first;
 
-class Main {
+public class Main {
   public static void main(String[] args) {
 
     // Task 1.1 Betting Calculator
