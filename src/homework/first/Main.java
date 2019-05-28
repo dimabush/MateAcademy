@@ -8,7 +8,6 @@ public class Main {
     System.out.println(BettingCalculator.matchResult(1, 2, 1, 2));
     System.out.println(BettingCalculator.matchResult(1, 2, 2, 2));
 
-
     // Task 1.2 drawing a rhombus
     DrawingDiamond.drawDiamond(11);
 
