@@ -1,7 +1,7 @@
 package homework.first;
 
-class BettingCalculator {
-  static int matchResult(
+public class BettingCalculator {
+  protected static int matchResult(
           int firstTeamScore, int secondTeamScore, int betFirstTeamScore, int betSecondTeamScore) {
     return (firstTeamScore == betFirstTeamScore && secondTeamScore == betSecondTeamScore) ? 2 :
             (firstTeamScore < secondTeamScore && betFirstTeamScore < betSecondTeamScore)
