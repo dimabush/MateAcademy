@@ -23,5 +23,8 @@ public class Main {
         "Лука Лукич: Господи боже! еще и с секретным предписаньем!"
     };
     System.out.println(RedactorScript.groupLinesByRoles(rolesArray, scriptArray));
+
+    // Task 3.5 Palindrome
+    System.out.println(Palindrome.isPalindrome("Madam, I'm Adam!"));
   }
 }
