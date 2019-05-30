@@ -24,10 +24,17 @@ public class Main {
     };
     System.out.println(RedactorScript.groupLinesByRoles(rolesArray, scriptArray));
 
+    // Task 3.4 Equals & hachcode
+    ComplexNumber complOne = new ComplexNumber(0.005,0.0006);
+    ComplexNumber complTwo = new ComplexNumber(0.005,0.0008);
+    System.out.println("equals: " + complOne.equals(complTwo));
+    System.out.println("hashcode One: " + complOne.hashCode());
+    System.out.println("hashcode Two: " + complTwo.hashCode());
+
     // Task 3.5 Palindrome
     System.out.println(Palindrome.isPalindrome("Madam, I'm Adam!"));
 
     // Task 3.6 Factorial
-    System.out.println(Factorial.factorial(5));
+    System.out.println("Factorial: " + Factorial.factorial(5));
   }
 }

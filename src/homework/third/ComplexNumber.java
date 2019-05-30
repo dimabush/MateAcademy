@@ -1,7 +1,5 @@
 package homework.third;
 
-import java.util.Objects;
-
 public final class ComplexNumber {
   private final double re;
   private final double im;
@@ -20,16 +18,19 @@ public final class ComplexNumber {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    ComplexNumber that = (ComplexNumber) o;
-    return Double.compare(that.re, re) == 0 &&
-            Double.compare(that.im, im) == 0;
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj instanceof ComplexNumber) {
+      return Double.compare(this.re, ((ComplexNumber) obj).re) == 0
+              && Double.compare(this.im, ((ComplexNumber) obj).im) == 0;
+    }
+    return false;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(re, im);
+    return (int) (this.re * 10000 + this.im * 10000);
   }
 }
