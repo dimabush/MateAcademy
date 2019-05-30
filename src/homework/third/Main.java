@@ -26,5 +26,8 @@ public class Main {
 
     // Task 3.5 Palindrome
     System.out.println(Palindrome.isPalindrome("Madam, I'm Adam!"));
+
+    // Task 3.6 Factorial
+    System.out.println(Factorial.factorial(5));
   }
 }
