@@ -2,16 +2,13 @@ package homework.second;
 
 public class TwoTruths {
   public static boolean booleanExpression(
-          boolean firstBooleanExpression, boolean secondBooleanExpression,
-          boolean thirdBooleanExpression, boolean fourthBooleanExpression) {
-    int result = 0;
-    boolean[] array = {firstBooleanExpression, secondBooleanExpression, thirdBooleanExpression,
-            fourthBooleanExpression};
-    for (boolean element : array) {
-      if (element) {
-        result++;
-      }
-    }
-    return result == 2;
+          boolean firstExpression, boolean secondExpression,
+          boolean thirdExpression, boolean fourthExpression) {
+    return (firstExpression & secondExpression & (!thirdExpression) & (!fourthExpression))
+            ^ (firstExpression & thirdExpression & (!secondExpression) & (!fourthExpression))
+            ^ (firstExpression & fourthExpression & (!secondExpression) & (!thirdExpression))
+            ^ (secondExpression & thirdExpression & (!firstExpression) & (!fourthExpression))
+            ^ (secondExpression & fourthExpression & (!firstExpression) & (!thirdExpression))
+            ^ (thirdExpression & fourthExpression & (!firstExpression) & (!secondExpression));
   }
 }
