@@ -9,11 +9,7 @@ public class AsciiCharSequence implements CharSequence {
 
   @Override
   public int length() {
-    int counter = 0;
-    for (byte x : this.array) {
-      counter++;
-    }
-    return counter;
+    return array.length;
   }
 
   @Override
@@ -23,6 +19,9 @@ public class AsciiCharSequence implements CharSequence {
 
   @Override
   public CharSequence subSequence(int start, int end) {
+    if (start > end){
+      return null;
+    }
     byte[] newArray = new byte[end - start];
     int k = 0;
     for (int i = start; i < end; i++) {
