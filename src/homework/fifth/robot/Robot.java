@@ -12,9 +12,6 @@ public class Robot {
         if (i == 2) {
           throw new RobotConnectionException("We have some problem.", e1);
         }
-      } catch (Exception exception) {
-        i = 3;
-        throw exception;
       } finally {
         try {
           robotConnection.close();
