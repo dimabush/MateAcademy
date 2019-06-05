@@ -1,21 +1,21 @@
 package homework.sixth;
 
 import homework.sixth.carclone.Car;
-import homework.sixth.carclone.Human;
+import homework.sixth.carclone.Engine;
 
 public class Main {
   public static void main(String[] args) {
 
     // Task 6.1 deep clone
-    Human andriy = new Human("Andriy", 31);
-    Human ivan = new Human("Ivan", 25);
-    Car carOrigin = new Car("volvo", "diesel", 150, andriy);
+    Engine diesel = new Engine("diesel", "manual gearbox", 1600);
+    Engine petrol = new Engine("petrol", "automatic", 1800);
+    Car carOrigin = new Car("volvo", "saloon", 115, diesel);
     Car carClone = carOrigin.clone();
     System.out.println(carOrigin);
     System.out.println(carClone);
     carOrigin.setModel("audi");
     carOrigin.setPower(108);
-    carOrigin.setOwner(ivan);
+    carOrigin.setEngine(petrol);
     System.out.println("After changing carOrigin:");
     System.out.println(carOrigin);
     System.out.println(carClone);

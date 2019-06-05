@@ -2,45 +2,45 @@ package homework.sixth.carclone;
 
 public class Car implements Cloneable {
   private String model;
-  private String fuelType;
+  private String vehicleType;
   private int power;
-  private Human owner;
+  private Engine engine;
 
-  public Car(String model, String fuelType, int power, Human owner) {
+  public Car(String model, String vehicleType, int power, Engine engine) {
     this.model = model;
-    this.fuelType = fuelType;
+    this.vehicleType = vehicleType;
     this.power = power;
-    this.owner = owner;
+    this.engine = engine;
   }
 
   public void setModel(String model) {
     this.model = model;
   }
 
-  public void setFuelType(String fuelType) {
-    this.fuelType = fuelType;
+  public void setVehicleType(String vehicleType) {
+    this.vehicleType = vehicleType;
   }
 
   public void setPower(int power) {
     this.power = power;
   }
 
-  public void setOwner(Human owner) {
-    this.owner = owner;
+  public void setEngine(Engine engine) {
+    this.engine = engine;
   }
 
   @Override
   public Car clone() {
-    return new Car(this.model, this.fuelType, this.power, owner.clone());
+    return new Car(this.model, this.vehicleType, this.power, engine.clone());
   }
 
   @Override
   public String toString() {
     return "Car{"
             + "model='" + model + '\''
-            + ", fuelType='" + fuelType + '\''
+            + ", vehicleType='" + vehicleType + '\''
             + ", power=" + power
-            + ", owner=" + owner
+            + ", engine=" + engine
             + '}';
   }
 }
