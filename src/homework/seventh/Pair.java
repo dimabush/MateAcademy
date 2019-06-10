@@ -29,8 +29,9 @@ public class Pair<T, K> {
       return true;
     }
     if (obj instanceof Pair) {
-      return Objects.equals(firstValue, ((Pair) obj).firstValue)
-              && Objects.equals(secondValue, ((Pair) obj).secondValue);
+      Pair<?, ?> pair = (Pair<?, ?>) obj;
+      return Objects.equals(firstValue, pair.firstValue)
+              && Objects.equals(secondValue, pair.secondValue);
     }
     return false;
   }
