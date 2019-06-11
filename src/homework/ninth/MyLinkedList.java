@@ -6,20 +6,28 @@ public class MyLinkedList<T> implements List<T> {
   private Node lastNode;
   private int size;
 
-  public MyLinkedList() {
-    size = 0;
-  }
 
-  class Node {
-    Node prev;
-    Node next;
-    T value;
+  private static class Node<T> {
+    private Node prev;
+    private Node next;
+    private T value;
 
-    public Node(Node prev, Node next, T value) {
+    public Node(Node<T> prev, Node<T> next, T value) {
       this.prev = prev;
       this.next = next;
       this.value = value;
     }
+  }
+
+  public Node getNode(int index) {
+    if (index < 0 || index > size - 1) {
+      throw new IndexOutOfBoundsException("Index is out of range");
+    }
+    Node currentNode = firstNode;
+    for (int i = 0; i < index; i++) {
+      currentNode = currentNode.next;
+    }
+    return currentNode;
   }
 
   @Override
@@ -27,9 +35,6 @@ public class MyLinkedList<T> implements List<T> {
     if (size == 0) {
       firstNode = new Node(null, null, value);
       lastNode = firstNode;
-    } else if (size == 1) {
-      lastNode = new Node(firstNode, null, value);
-      firstNode.next = lastNode;
     } else {
       Node currentNode = new Node(lastNode, null, value);
       lastNode.next = currentNode;
@@ -40,18 +45,11 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public void add(T value, int index) {
-    if (index < 0 || index > this.size - 1) {
-      throw new IndexOutOfBoundsException("Index is out of range");
-    } else {
-      Node currentNode = this.firstNode;
-      for (int i = 0; i < index; i++) {
-        currentNode = currentNode.next;
-      }
-      Node addedNode = new Node(currentNode.prev, currentNode, value);
-      currentNode.prev.next = addedNode;
-      currentNode.prev = addedNode;
-      this.size++;
-    }
+    Node currentNode = getNode(index);
+    Node addedNode = new Node(currentNode.prev, currentNode, value);
+    currentNode.prev.next = addedNode;
+    currentNode.prev = addedNode;
+    this.size++;
   }
 
   @Override
@@ -61,15 +59,7 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public T get(int index) {
-    if (index < 0 || index > this.size - 1) {
-      throw new IndexOutOfBoundsException("Index is out of range");
-    } else {
-      Node currentNode = this.firstNode;
-      for (int i = 0; i < index; i++) {
-        currentNode = currentNode.next;
-      }
-      return currentNode.value;
-    }
+    return (T) getNode(index).value;
   }
 
   @Override
@@ -81,43 +71,23 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public void set(T value, int index) {
-    if (index < 0 || index > this.size - 1) {
-      throw new IndexOutOfBoundsException("Index is out of range");
-    } else if (index == this.size - 1) {
-      this.lastNode.value = value;
-    } else if (index == 0) {
-      this.firstNode.value = value;
-    } else {
-      Node currentNode = this.firstNode;
-      for (int i = 0; i < index; i++) {
-        currentNode = currentNode.next;
-      }
-      Node setNode = new Node(currentNode.prev, currentNode.next, value);
-      currentNode.prev.next = setNode;
-      currentNode.next.prev = setNode;
-    }
-
+    getNode(index).value = value;
   }
 
   @Override
   public T remove(int index) {
     T removedValue;
-    if (index < 0 || index > this.size - 1) {
-      throw new IndexOutOfBoundsException("Index is out of range");
-    } else if (index == this.size - 1) {
-      removedValue = this.lastNode.value;
+    if (index == this.size - 1) {
+      removedValue = (T) this.lastNode.value;
       this.lastNode = this.lastNode.prev;
       this.lastNode.next = null;
     } else if (index == 0) {
-      removedValue = this.firstNode.value;
+      removedValue = (T) this.firstNode.value;
       this.firstNode = this.firstNode.next;
       this.firstNode.prev = null;
     } else {
-      Node currentNode = this.firstNode;
-      for (int i = 0; i < index; i++) {
-        currentNode = currentNode.next;
-      }
-      removedValue = currentNode.value;
+      Node currentNode = getNode(index);
+      removedValue = (T) currentNode.value;
       currentNode.prev.next = currentNode.next;
       currentNode.next.prev = currentNode.prev;
     }
@@ -164,5 +134,4 @@ public class MyLinkedList<T> implements List<T> {
     }
     return result.toString();
   }
-
 }
