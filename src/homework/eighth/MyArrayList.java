@@ -1,12 +1,14 @@
 package homework.eighth;
 
+import java.util.Arrays;
+
 public class MyArrayList<T> implements List<T> {
   private int size;
   private T[] array;
   private static final int EXPANSE = 5;
 
   public MyArrayList() {
-    array = (T[]) new Object[size];
+    array = (T[]) new Object[10];
   }
 
   public MyArrayList(T[] array) {
@@ -19,10 +21,7 @@ public class MyArrayList<T> implements List<T> {
     if (size < array.length) {
       array[size] = value;
     } else {
-      T[] newArray = (T[]) new Object[size + EXPANSE];
-      for (int i = 0; i < size; i++) {
-        newArray[i] = array[i];
-      }
+      T[] newArray = Arrays.copyOf(array, array.length * 3 / 2);
       newArray[size] = value;
       array = newArray;
     }
@@ -31,72 +30,78 @@ public class MyArrayList<T> implements List<T> {
 
   @Override
   public void add(T value, int index) {
-    if (index == (size - 1)) {
+    if (index == size) {
       add(value);
-    } else {
-      int sizeNewArray;
+    } else if (index > 0 && index < array.length) {
       if (size < array.length) {
-        sizeNewArray = array.length;
+        System.arraycopy(array, index + 1, array, index, size - index);
+        array[index] = value;
       } else {
-        sizeNewArray = size + EXPANSE;
+        T[] newArray = (T[]) new Object[array.length * 3 / 2];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = value;
+        System.arraycopy(array, index, newArray, index + 1, size - index);
       }
-      T[] newArray = (T[]) new Object[sizeNewArray];
-      int element = 0;
-      for (int i = 0; i < size + 1; i++) {
-        if (i == index) {
-          newArray[i] = value;
-        } else {
-          newArray[i] = array[element];
-          element++;
-        }
-      }
-      array = newArray;
       size++;
+    } else {
+      throw new IndexOutOfBoundsException();
     }
   }
 
   @Override
   public int size() {
-    return this.size;
+    return size;
   }
 
   @Override
   public T get(int index) {
-    return array[index];
+    if (index >= 0 && index < array.length) {
+      return array[index];
+    } else {
+      throw new IndexOutOfBoundsException();
+    }
   }
 
   @Override
   public void addAll(List<T> list) {
+    if (list.isEmpty()) {
+      return;
+    }
+    if ((size + list.size()) > array.length) {
+      array = Arrays.copyOf(array, size + list.size());
+    }
     for (int i = 0; i < list.size(); i++) {
-      this.add(list.get(i));
+      array[size++] = list.get(i);
     }
   }
 
   @Override
   public void set(T value, int index) {
-    this.array[index] = value;
+    if (index < 0 || index >= array.length) {
+      throw new IndexOutOfBoundsException();
+    }
+    array[index] = value;
   }
 
   @Override
   public T remove(int index) {
-    T result;
     if (index < 0 || index > size - 1) {
       throw new IndexOutOfBoundsException("Index is out of range");
-    } else {
-      result = array[index];
-      for (int i = index; i < size - 1; i++) {
-        array[i] = array[i + 1];
-      }
-      return result;
     }
+    T result = array[index];
+    System.arraycopy(array, index + 1, array, index, size - index - 1);
+    array[size - 1] = null;
+    size--;
+    return result;
   }
 
   @Override
   public T remove(T value) {
     T result = null;
     for (int i = 0; i < size; i++) {
-      if (array[i] == value) {
-        this.remove(i);
+      if (array[i].equals(value)) {
+        result = remove(i);
+        break;
       }
     }
     return result;
@@ -104,7 +109,7 @@ public class MyArrayList<T> implements List<T> {
 
   @Override
   public boolean isEmpty() {
-    return this.size == 0;
+    return size == 0;
   }
 
   @Override
