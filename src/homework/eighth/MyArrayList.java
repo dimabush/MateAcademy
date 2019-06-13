@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class MyArrayList<T> implements List<T> {
   private int size;
   private T[] array;
-  private static final int EXPANSE = 5;
 
   public MyArrayList() {
     array = (T[]) new Object[10];
