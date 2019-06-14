@@ -5,9 +5,10 @@ import java.util.Arrays;
 public class MyArrayList<T> implements List<T> {
   private int size;
   private T[] array;
+  private final static int CAPACITY = 10;
 
   public MyArrayList() {
-    array = (T[]) new Object[10];
+    array = (T[]) new Object[CAPACITY];
   }
 
   public MyArrayList(T[] array) {
@@ -17,13 +18,10 @@ public class MyArrayList<T> implements List<T> {
 
   @Override
   public void add(T value) {
-    if (size < array.length) {
-      array[size] = value;
-    } else {
-      T[] newArray = Arrays.copyOf(array, array.length * 3 / 2);
-      newArray[size] = value;
-      array = newArray;
+    if (size >= array.length) {
+      array = Arrays.copyOf(array, array.length * 3 / 2);
     }
+    array[size] = value;
     size++;
   }
 
@@ -31,16 +29,12 @@ public class MyArrayList<T> implements List<T> {
   public void add(T value, int index) {
     if (index == size) {
       add(value);
-    } else if (index > 0 && index < array.length) {
-      if (size < array.length) {
-        System.arraycopy(array, index + 1, array, index, size - index);
-        array[index] = value;
-      } else {
-        T[] newArray = (T[]) new Object[array.length * 3 / 2];
-        System.arraycopy(array, 0, newArray, 0, index);
-        newArray[index] = value;
-        System.arraycopy(array, index, newArray, index + 1, size - index);
+    } else if (index > 0 && index < size) {
+      if(size >= array.length){
+        array = Arrays.copyOf(array, array.length * 3 / 2);
       }
+      System.arraycopy(array, index + 1, array, index, size - index);
+      array[index] = value;
       size++;
     } else {
       throw new IndexOutOfBoundsException();
@@ -54,7 +48,7 @@ public class MyArrayList<T> implements List<T> {
 
   @Override
   public T get(int index) {
-    if (index >= 0 && index < array.length) {
+    if (index >= 0 && index < size) {
       return array[index];
     } else {
       throw new IndexOutOfBoundsException();
@@ -76,7 +70,7 @@ public class MyArrayList<T> implements List<T> {
 
   @Override
   public void set(T value, int index) {
-    if (index < 0 || index >= array.length) {
+    if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException();
     }
     array[index] = value;
