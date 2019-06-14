@@ -15,7 +15,8 @@ public class Main {
     map.put(9, "numb9");
     map.put(10, "numb10");
     map.put(11, "numb11");
-    map.put(43, "numb43");
+    map.put(37, "numb37");
+    map.put(69, "numb69");
     map.put(13, "numb13");
     System.out.println(map);
     System.out.println("SIZE = " + map.size());
