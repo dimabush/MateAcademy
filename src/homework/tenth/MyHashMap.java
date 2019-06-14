@@ -1,11 +1,10 @@
 package homework.tenth;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class MyHashMap<K, V> implements MyMap<K, V> {
   private int size;
-  private Node[] nodes;
+  private Node<K, V>[] nodes;
 
   public MyHashMap() {
     nodes = new Node[16];
@@ -14,7 +13,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
   private static class Node<K, V> {
     K key;
     V value;
-    Node next;
+    Node<K, V> next;
 
     public Node(K key, V value) {
       this.key = key;
@@ -36,12 +35,12 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     return putNode(key, value, nodes);
   }
 
-  private V putNode(K key, V value, Node[] nodes) {
-    int index = Objects.hashCode(key) % nodes.length;
+  private V putNode(K key, V value, Node<K, V>[] nodes) {
+    int index = key.hashCode() % nodes.length;
     if (nodes[index] == null) {
       nodes[index] = new Node(key, value);
     } else {
-      Node currentNode = nodes[index];
+      Node<K, V> currentNode = nodes[index];
       do {
         if (currentNode.key.equals(key)) {
           currentNode.value = value;
@@ -63,9 +62,9 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
       Node[] newNodes = new Node[nodes.length * 2];
       for (int i = 0; i < nodes.length; i++) {
         if (nodes[i] != null) {
-          putNode((K) nodes[i].key, (V) nodes[i].value, newNodes);
+          putNode(nodes[i].key, nodes[i].value, newNodes);
           if (nodes[i].next != null) {
-            putNode((K) nodes[i].next.key, (V) nodes[i].next.value, newNodes);
+            putNode(nodes[i].next.key, nodes[i].next.value, newNodes);
           }
           nodes[i] = null;
         }
@@ -81,11 +80,11 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
 
   @Override
   public V get(K key) {
-    int index = Objects.hashCode(key) % nodes.length;
-    Node currentNode = nodes[index];
+    int index = key.hashCode() % nodes.length;
+    Node<K, V> currentNode = nodes[index];
     while (currentNode != null) {
       if (currentNode.key.equals(key)) {
-        return (V) currentNode.value;
+        return currentNode.value;
       }
       currentNode = currentNode.next;
     }
@@ -94,12 +93,12 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
 
   @Override
   public V remove(K key) {
-    int index = Objects.hashCode(key) % nodes.length;
+    int index = key.hashCode() % nodes.length;
     V removedValue = null;
-    Node currentNode = nodes[index];
+    Node<K, V> currentNode = nodes[index];
     while (currentNode != null) {
       if (currentNode.key.equals(key)) {
-        removedValue = (V) currentNode.value;
+        removedValue = currentNode.value;
         nodes[index] = nodes[index].next;
         size--;
         return removedValue;
