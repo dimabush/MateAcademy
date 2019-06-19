@@ -11,9 +11,9 @@ public class Test {
   }
 
   public static String getCallerClassAndMethodName() {
-    StackTraceElement[] ste = new Throwable().getStackTrace();
-    if (ste.length > 2) {
-      return ste[2].getClassName() + "#" + ste[2].getMethodName();
+    StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+    if (stackTrace.length > 2) {
+      return stackTrace[2].getClassName() + "#" + stackTrace[2].getMethodName();
     }
     return null;
   }
