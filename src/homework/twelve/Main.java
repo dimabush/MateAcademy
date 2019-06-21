@@ -2,7 +2,6 @@ package homework.twelve;
 
 public class Main {
   public static void main(String[] args) {
-
     // Task 1. Integral
     System.out.println(Integral.integrate(x -> 1, 0, 10));
     System.out.println(Integral.integrate(x -> x + 2, 0, 10));
