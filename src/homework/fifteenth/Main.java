@@ -16,10 +16,10 @@ public class Main {
   }
 
   public static void main(String[] args) {
-    System.out.println("In order to make a bet you need to \n" +
-        "enter the amount, space and the risk");
+    System.out.println("In order to make a bet you need to \n"
+        + "enter the amount, space and the risk");
     ConsoleHandler.handle();
     BetDao betDao = new BetDaoImpl();
     System.out.println(betDao.getAll());
- }
+  }
 }
