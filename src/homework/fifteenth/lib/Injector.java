@@ -15,7 +15,7 @@ public class Injector {
     Field[] consoleHandlerFields = consoleHandlerClass.getDeclaredFields();
     for (Field field : consoleHandlerFields) {
       if (field.getDeclaredAnnotation(Inject.class) != null) {
-        if (field.getGenericType().equals(betDaoClass.getGenericInterfaces()[0])) {
+        if (field.getName().equals("betDao") && betDaoClass.isAnnotationPresent(Dao.class)) {
           field.setAccessible(true);
           field.set(null, BetDaoFactory.getBetDao());
         }
