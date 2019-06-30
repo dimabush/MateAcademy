@@ -15,6 +15,6 @@ public class HumanDaoImpl implements HumanDao {
 
   @Override
   public List<Human> getAllHumans() {
-    return Storage.humans;
+    return Storage. HUMANS;
   }
 }
