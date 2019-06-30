@@ -10,7 +10,7 @@ import java.util.List;
 public class BetDaoImpl implements BetDao {
   @Override
   public void add(Bet bet) {
-    Storage. BETS.add(bet);
+    Storage.BETS.add(bet);
   }
 
   @Override
