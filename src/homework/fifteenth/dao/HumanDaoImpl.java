@@ -10,7 +10,7 @@ import java.util.List;
 public class HumanDaoImpl implements HumanDao {
   @Override
   public void addHuman(Human human) {
-    Storage.humans.add(human);
+    Storage. HUMANS.add(human);
   }
 
   @Override
